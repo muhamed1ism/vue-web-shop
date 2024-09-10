@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  mysql_db:
+    build:
+      context: ./mysql/
+      dockerfile: Dockerfile
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: rootlozinka
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: lozinka
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
