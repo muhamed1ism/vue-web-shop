@@ -1,7 +1,12 @@
-const jwt = require('jsonwebtoken');
+import pkg from 'jsonwebtoken';
+import dotenv from 'dotenv';
+
+const {sign, verify} = pkg;
+
+dotenv.config();
 
 const generateToken = (user) => {
-  return jwt.sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, {
+  return sign({ id: user.id, role: user.role }, process.env.JWT_SECRET, {
     expiresIn: '1d',
   });
 };
@@ -14,7 +19,7 @@ const verifyToken = (req, res, next) => {
   }
 
   try {
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const verified = verify(token, process.env.JWT_SECRET);
     req.user = verified;
     next();
   } catch (err) {
@@ -22,4 +27,4 @@ const verifyToken = (req, res, next) => {
   }
 };
 
-module.exports = { generateToken, verifyToken };
+export default { generateToken, verifyToken };
