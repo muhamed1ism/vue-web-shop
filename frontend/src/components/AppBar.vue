@@ -24,22 +24,27 @@
       @click="toggleTheme"
     />
     <v-btn v-if="display.smAndUp.value" to="/cart" variant="plain">
-      <v-chip color="primary" append-icon="mdi-cart" size="large" class="text-">{{ cartStore.cart.cartItems.length }}</v-chip>
+      <v-chip color="primary" append-icon="mdi-cart" size="large" class="text-">
+        {{ cartStore.cart.cartItems.length }}
+      </v-chip>
     </v-btn>
 
     <template v-if="!isAuthenticated">
       <v-btn size="small" icon="mdi-login" class="bg-primary mx-2 hidden-sm-and-up" to="/login" />
       <v-btn v-if="display.smAndUp.value" append-icon="mdi-login" class="bg-primary mx-4" to="/login" rounded>
-        Prijavi se
+        Login
       </v-btn>
     </template>
 
     <template v-if="isAuthenticated">
-      <v-btn v-if="display.smAndUp.value && (display.width.value < 960 || display.width.value >= 1060)" append-icon="mdi-login" variant="outlined" rounded
-        class="bg-outline text-primary mr-3 mr-lg-4" @click="logOut()">
-        Odjavi se
+      <v-btn v-if="display.smAndUp.value && (display.width.value < 960 || display.width.value >= 1060)"
+             append-icon="mdi-login" variant="outlined" rounded class="bg-outline text-primary mr-3 mr-lg-4"
+             @click="logOut()"
+      >
+        Logout
       </v-btn>
-      <v-btn v-else size="small" icon="mdi-login" class="bg-outline text-primary mx-4" to="/login" variant="outlined" rounded="xl" />
+      <v-btn v-else size="small" icon="mdi-login" class="bg-outline text-primary mx-4" to="/login" variant="outlined"
+             rounded="xl" />
     </template>
 
 
@@ -67,18 +72,18 @@ const isUser = authStore.auth.role === 'USER';
 let navItems;
 
 const guestUserNavItems = [
-  { title: 'Početna', href: '/' },
-  { title: 'Artikli', href: '/products' },
-  { title: 'O nama', href: '/about'}
+  { title: 'Home', href: '/' },
+  { title: 'Products', href: '/products' },
+  { title: 'About', href: '/about'}
 ];
 
 const userNavItems = [
-  { title: 'Narudžbe', href: '/orders' },
+  { title: 'Orders', href: '/orders' },
 ];
 
 const adminNavItems = [
-  { title: 'Upravljanje artiklima', href: '/manage' },
-  { title: 'Narudžbe', href: '/orders' },
+  { title: 'Manage products', href: '/manage' },
+  { title: 'Orders', href: '/orders' },
 ];
 
 if (isAdmin) {

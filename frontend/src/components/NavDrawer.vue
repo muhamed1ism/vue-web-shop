@@ -7,7 +7,9 @@
     <v-list nav>
       <v-list-item v-if="$vuetify.display.xs" class="mb-1 d-flex justify-center">
         <v-btn to="/cart" variant="plain" class="mx-4">
-          <v-chip color="primary" append-icon="mdi-cart" size="large" class="text-">{{ cartStore.cart.cartItems.length }}</v-chip>
+          <v-chip color="primary" append-icon="mdi-cart" size="large" class="text-">
+            {{ cartStore.cart.cartItems.length }}
+          </v-chip>
         </v-btn>
         <v-btn
           color="primary"
@@ -52,19 +54,19 @@
   let navItems;
 
   const guestUserNavItems = [
-    { title: 'Početna', icon: 'mdi-home', href: '/' },
-    { title: 'Artikli', icon: 'mdi-shopping', href: '/products' },
-    { title: 'O nama', icon: 'mdi-information', href: '/about' },
+    { title: 'Home', icon: 'mdi-home', href: '/' },
+    { title: 'Products', icon: 'mdi-shopping', href: '/products' },
+    { title: 'About', icon: 'mdi-information', href: '/about' },
   ];
 
   const userNavItems = [
-    { title: 'Narudžbe', icon: 'mdi-truck', href: '/orders' },
+    { title: 'Orders', icon: 'mdi-truck', href: '/orders' },
   ];
 
   const adminNavItems = [
-    { title: 'Dodaj artikal', icon: 'mdi-plus-circle-outline', href: '/manage/create' },
-    { title: 'Upravljanje artiklima', icon: 'mdi-store-edit', href: '/manage' },
-    { title: 'Narudžbe', icon: 'mdi-format-list-bulleted', href: '/orders' },
+    { title: 'Add product', icon: 'mdi-plus-circle-outline', href: '/manage/create' },
+    { title: 'Manage products', icon: 'mdi-store-edit', href: '/manage' },
+    { title: 'Orders', icon: 'mdi-format-list-bulleted', href: '/orders' },
   ];
 
   if (isAdmin) {

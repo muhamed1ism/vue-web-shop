@@ -15,38 +15,50 @@
 
         <v-col cols="12" sm="10" md="5" lg="5" xl="4" class="d-flex flex-column">
           <v-card-title class="text-primary text-h4">{{ product.name }}</v-card-title>
-          <v-card-subtitle class="ml-2">Ažurirano: {{ formattedUpdatedAt }}</v-card-subtitle>
-          <v-card-text class="ml-2 text-start text-h5">Zalihe: {{ product.stock }}</v-card-text>
+          <v-card-subtitle class="ml-2">Updated: {{ formattedUpdatedAt }}</v-card-subtitle>
+          <v-card-text class="ml-2 text-start text-h5">Stock: {{ product.stock }}</v-card-text>
 
           <v-spacer>
             <v-alert v-model="alertVisible" density="compact" variant="tonal" type="error" class="" rounded="xl">
-              Nedovoljna količina zalihe
+              Insufficient stock quantity.
             </v-alert>
           </v-spacer>
 
           <v-row align-content="center" align="center" class="mx-6">
-            <v-label class="text-h5 pr-2">Količina: </v-label>
+            <v-label class="text-h5 pr-2">Quantity: </v-label>
             <v-col cols="6" sm="4" md="5" lg="4" xl="3">
               <v-text-field density="compact" variant="outlined" rounded type="number" step="1" min="0"
                 :max="product.stock" v-model="quantity" @input="onQuantityChange"
                 class="font-weight-medium text-end mx-2 mt-5"></v-text-field>
             </v-col>
-            <v-card-text class="text-end text-h4">{{ product.price }} KM</v-card-text>
+            <v-card-text class="text-end text-h4">$ {{ product.price }}</v-card-text>
           </v-row>
 
           <v-card-actions class="d-flex justify-center">
             <v-row>
-              <v-col cols="12" sm="6" md="4" lg="6">
-                <v-btn v-if="authStore.auth.isAuthenticated" width="100%" color="primary" size="large" variant="flat" append-icon="mdi-cart"
-                  rounded @click="buy()">Kupi</v-btn>
-                <v-btn v-if="!authStore.auth.isAuthenticated" width="100%" color="primary" size="large" variant="flat" append-icon="mdi-cart"
-                  rounded to="/login" >Kupi</v-btn>
+              <v-col cols="12" sm="6" md="3" lg="6">
+                <v-btn v-if="authStore.auth.isAuthenticated" width="100%" color="primary" size="large" variant="flat"
+                       append-icon="mdi-cart" rounded @click="buy()"
+                >
+                  Buy
+                </v-btn>
+                <v-btn v-if="!authStore.auth.isAuthenticated" width="100%" color="primary" size="large" variant="flat"
+                       append-icon="mdi-cart" rounded to="/login"
+                >
+                  Buy
+                </v-btn>
               </v-col>
-              <v-col cols="12" sm="6" md="8" lg="6">
+              <v-col cols="12" sm="6" md="9" lg="6">
                 <v-btn v-if="cartStore.cart.isProductInCart" width="100%" color="red" rounded size="large"
-                  variant="tonal" append-icon="mdi-cart-remove" @click="removeFromCart()">Ukloni iz korpe</v-btn>
+                  variant="tonal" append-icon="mdi-cart-remove" @click="removeFromCart()"
+                >
+                  Remove from cart
+                </v-btn>
                 <v-btn v-if="!cartStore.cart.isProductInCart" width="100%" size="large" color="primary" variant="tonal"
-                  rounded append-icon="mdi-cart-plus" @click="addToCart()">Dodaj u korpu</v-btn>
+                  rounded append-icon="mdi-cart-plus" @click="addToCart()"
+                >
+                  Add to cart
+                </v-btn>
               </v-col>
             </v-row>
           </v-card-actions>
@@ -54,7 +66,7 @@
       </v-row>
       <v-row justify="center">
         <v-col cols="12" sm="10" md="12" lg="12" xl="10">
-          <v-card-title class="text-primary text-h5">Opis</v-card-title>
+          <v-card-title class="text-primary text-h5">Description</v-card-title>
           <v-card-text class="text-medium-emphasis">{{ product.description }}</v-card-text>
         </v-col>
       </v-row>
@@ -64,7 +76,7 @@
       <v-card>
         <v-card-actions>
           <v-spacer />
-          <v-btn color="primary" @click="imageModalVisible = false" variant="text" append-icon="mdi-close">Zatvori</v-btn>
+          <v-btn color="primary" @click="imageModalVisible = false" variant="text" append-icon="mdi-close">Close</v-btn>
         </v-card-actions>
         <v-img :src="selectedImageUrl" aspect-ratio="1.75"></v-img>
       </v-card>

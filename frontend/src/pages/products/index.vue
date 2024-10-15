@@ -2,12 +2,12 @@
   <v-container class="px-auto">
     <v-row class="my-4 mx-2">
       <v-col cols="0" sm="7" lg="8">
-        <h1 class="font-weight-medium text-primary">Artikli</h1>
+        <h1 class="font-weight-medium text-primary">Products</h1>
       </v-col>
       <v-col cols="12" sm="5" lg="4">
         <v-text-field
           v-model="search"
-          label="Pretraži"
+          label="Search"
           variant="outlined"
           density="compact"
           single-line
@@ -18,20 +18,11 @@
         />
       </v-col>
     </v-row>
-    <v-row v-if="loading" justify="center">
-      <v-col cols="12" class="text-center">
-        <v-progress-circular indeterminate></v-progress-circular>
-        <p>Loading products...</p>
-      </v-col>
-    </v-row>
 
-    <v-row v-if="error" justify="center">
-      <v-col cols="12" class="text-center">
-        <v-alert type="error">{{ error }}</v-alert>
+    <v-row class="my-12" dense>
+      <v-col v-if="products.length === 0">
+        <h3 class="text-center text-primary text-h3">No products</h3>
       </v-col>
-    </v-row>
-
-    <v-row v-if="!loading && !error" class="my-12" dense>
       <v-col v-for="product in filteredProducts" cols="12" sm="6" md="4" lg="3">
         <v-card class="mx-2 mx-lg-4 my-4 card-shadow" :key="product.id" variant="flat" rounded="lg">
 
@@ -52,7 +43,7 @@
           <v-card-text class="fit-text text-medium-emphasis">
             {{ product.description }}
           </v-card-text>
-          <v-card-text class="d-flex justify-end font-weight-medium text-h6">{{ product.price }} KM</v-card-text>
+          <v-card-text class="d-flex justify-end font-weight-medium text-h6">$ {{ product.price }}</v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -68,8 +59,6 @@ const products = ref([]);
 const search = ref('');
 
 const productStore = useProductStore();
-const loading = productStore.loading;
-const error = productStore.error;
 
 onMounted(
   async () => {

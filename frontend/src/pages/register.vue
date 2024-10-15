@@ -3,21 +3,24 @@
     <v-row class="justify-center">
       <v-col cols="12" sm="8" md="6" lg="4">
         <v-card variant="flat" class="pa-4">
-          <v-card-title class="text-center text-h5 text-primary">Registracija računa</v-card-title>
+          <v-card-title class="text-center text-h5 text-primary">Register account</v-card-title>
           <v-card-item>
             <v-sheet>
               <v-form @submit.prevent="submit">
-                <v-label class="px-4 text-subtitle-1 text-medium-emphasis text-primary opacity-90 font-weight-medium" text="Ime i prezime" />
-                <v-text-field density="compact" placeholder="Unesite ime i prezime" variant="outlined"
+                <v-label class="px-4 text-subtitle-1 text-medium-emphasis text-primary opacity-90 font-weight-medium"
+                         text="Name" />
+                <v-text-field density="compact" placeholder="Enter your name" variant="outlined"
                   v-model="form.name" :rules="rules.name" class="mb-1" rounded/>
 
-                <v-label class="px-4 text-subtitle-1 text-medium-emphasis text-primary opacity-90 font-weight-medium" text="Email" />
-                <v-text-field density="compact" placeholder="Unesite email adresu" variant="outlined"
+                <v-label class="px-4 text-subtitle-1 text-medium-emphasis text-primary opacity-90 font-weight-medium"
+                         text="Email" />
+                <v-text-field density="compact" placeholder="Enter email" variant="outlined"
                   v-model="form.email" :rules="rules.email" class="mb-1" rounded/>
 
-                <v-label class="px-4 text-subtitle-1 text-medium-emphasis text-primary opacity-90 font-weight-medium" text="Lozinka" />
+                <v-label class="px-4 text-subtitle-1 text-medium-emphasis text-primary opacity-90 font-weight-medium"
+                         text="Password" />
                 <v-text-field :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'"
-                  :type="visible ? 'text' : 'password'" density="compact" placeholder="Unesite lozinku"
+                  :type="visible ? 'text' : 'password'" density="compact" placeholder="Enter password"
                   variant="outlined" v-model="form.password" @click:append-inner="visible = !visible"
                   :rules="rules.password" class="mb-4" rounded/>
 
@@ -25,11 +28,14 @@
                   {{ alertMessage }}
                 </v-alert>
 
-                <v-btn type="submit" block variant="tonal" color="blue-primary text-primary" size="large" class="my-2" rounded>Registriraj
-                  se</v-btn>
+                <v-btn type="submit" block variant="tonal" color="blue-primary text-primary" size="large" class="my-2"
+                       rounded
+                >
+                  Register
+                </v-btn>
 
-                <v-card-text class="text-center text-medium-emphasis">Imate li račun? <RouterLink to="/login"
-                    class="text-primary text-decoration-none">Prijavi se</RouterLink></v-card-text>
+                <v-card-text class="text-center text-medium-emphasis">Have an account? <RouterLink to="/login"
+                    class="text-primary text-decoration-none">Login</RouterLink></v-card-text>
               </v-form>
             </v-sheet>
           </v-card-item>

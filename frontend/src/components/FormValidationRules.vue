@@ -1,26 +1,26 @@
 <script>
   export const rules = {
     name: [
-      (v) => !!v || "Ime i prezime su obavezni",
+      (v) => !!v || "Name is required",
     ],
 
     email: [
-      (v) => !!v || "Email je obavezan",
-      (v) => /.+@.+/.test(v) || "Email nije validan",
+      (v) => !!v || "Email is required",
+      (v) => /.+@.+/.test(v) || "Email is not valid",
     ],
 
     password: [
-      (v) => !!v || "Lozinka je obavezna",
-      (v) => (v && v.length >= 8) || "Lozinka mora biti duža od 8 karaktera",
+      (v) => !!v || "Lozinka is required",
+      (v) => (v && v.length >= 8) || "Password must be at least 8 characters",
     ],
 
     stock: [
-      (v) => v >= 0 || 'Stanje zalihe ne može biti negativno',
+      (v) => v >= 0 || 'Stock must be greater than or equal to 0',
     ],
 
     price: [
-      (v) => !!v || 'Cijena je obavezna',
-      (v) => v > 0 || 'Cijena mora biti veća od 0',
+      (v) => !!v || 'Price is required',
+      (v) => v > 0 || 'Price must be greater than 0',
     ],
   };
 </script>

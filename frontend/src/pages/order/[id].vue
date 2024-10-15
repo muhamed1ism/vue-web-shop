@@ -1,36 +1,35 @@
 <template>
   <v-container>
     <v-card rounded="xl" variant="tonal" color="primary">
-      <v-card-title class="font-wight-bold text-h4">Pregled narudžbe</v-card-title>
+      <v-card-title class="font-wight-bold text-h4">Order view</v-card-title>
       <v-card-text>
         <v-row>
           <v-col cols="12" md="4">
-            <div class="font-weight-medium">Broj narudžbe: </div> {{ orderId }}
-            <div class="font-weight-medium pt-2">Kreirana: </div> {{ formatDate(order.createdAt) }}
-            <div class="font-weight-medium pt-2">Cijena: </div> {{ formatPrice(order.total) }} KM
-            <div v-if="authStore.auth.role === 'ADMIN'"><div class="font-weight-medium pt-2">Email naručitelja: </div> {{ userEmail }}</div>
-            <div class="font-weight-medium pt-2">Status: </div> {{ orderStatus(order.status) }}
-            <v-card-actions  v-if="authStore.auth.role === 'ADMIN' && order.status === 'PENDING'">
+            <div class="font-weight-medium">Order number: </div> {{ orderId }}
+            <div class="font-weight-medium pt-2">Created: </div> {{ formatDate(order.createdAt) }}
+            <div class="font-weight-medium pt-2">Price: </div> $ {{ formatPrice(order.total) }}
+            <div v-if="authStore.auth.role === 'ADMIN'">
+              <div class="font-weight-medium pt-2">Customer's email: </div> {{ userEmail }}
+            </div>
+            <div class="font-weight-medium pt-2">Status: </div> {{ order.status }}
+            <v-card-actions v-if="authStore.auth.role === 'ADMIN' && order.status === 'PENDING'">
               <v-row class="pt-4">
                 <v-col cols="6" class="text-end px-1 ">
                   <v-btn append-icon="mdi-checkbox-marked-circle-outline" variant="tonal" rounded color="green"
-                    class="w-100" @click="approveOrder">Prihvati</v-btn>
+                    class="w-100" @click="approveOrder">Approve</v-btn>
                 </v-col>
                 <v-col cols="6" class="text-start px-1" justify-center>
                   <v-btn append-icon="mdi-close-circle-outline" variant="tonal" rounded color="red" class="w-100"
-                    @click="cancelOrder">Odbij</v-btn>
+                    @click="cancelOrder">Reject</v-btn>
                 </v-col>
               </v-row>
             </v-card-actions>
           </v-col>
           <v-col>
-            <v-data-table :headers="headers" :items="products" multi-sort items-per-page-text="Broj stavki po stranici"
-              :items-per-page="10" class="text-primary">
-
+            <v-data-table :headers="headers" :items="products" multi-sort :items-per-page="10" class="text-primary">
               <template v-slot:item.price="{ item }">
-                <div>{{ item.price }} KM</div>
+                <div>$ {{ item.price }}</div>
               </template>
-
             </v-data-table>
           </v-col>
         </v-row>
@@ -59,9 +58,9 @@ const userEmail = ref('');
 
 const headers = [
   { title: "ID", text: "ID", value: "productId", sortable: true },
-  { title: "Naziv", text: "Naziv", value: "name", sortable: true },
-  { title: "Količina", text: "Količina", value: "quantity", sortable: true },
-  { title: "Cijena", text: "Cijena", value: "price", sortable: true },
+  { title: "Name", text: "Name", value: "name", sortable: true },
+  { title: "Quantity", text: "Quantity", value: "quantity", sortable: true },
+  { title: "Price", text: "Price", value: "price", sortable: true },
 ];
 
 const fetchOrder = async () => {
@@ -77,16 +76,6 @@ const fetchOrder = async () => {
     order.value = fetchedOrder[0];
   } catch (error) {
     console.error('Error fetching order:', error);
-  }
-}
-
-const getProductQuantity = (productId) => {
-  const items = order.value.items
-  if (items) {
-    const item = items.find(item => item.productId === productId);
-    return item ? item.quantity : null;
-  } else {
-    return null;
   }
 }
 
@@ -146,13 +135,4 @@ const formatPrice = (value) => {
   }).format(value);
 };
 
-const orderStatus = (status) => {
-  if (status === 'COMPLETED') {
-    return 'PRIHVAĆENA';
-  } else if (status === 'PENDING') {
-    return 'NA ČEKANJU';
-  } else if (status === 'CANCELLED') {
-    return 'ODBIJENA';
-  }
-}
 </script>

@@ -4,7 +4,7 @@
       <v-row class="d-flex justify-center">
         <v-col cols="12" sm="10" md="7" xl="6">
           <div v-if="cartStore.cart.cartItems.length === 0" class="d-flex justify-center align-center">
-            <v-card-title class="text-center text-primary text-h3">Korpa je prazna!</v-card-title>
+            <v-card-title class="text-center text-primary text-h3">Cart is empty!</v-card-title>
           </div>
           <div v-for="product in products" class="mx-4">
             <v-card :key="product.id" class="my-2" variant="elevated">
@@ -39,20 +39,20 @@
         </v-col>
 
         <v-col cols="12" sm="10" md="5" lg="5" xl="4" class="d-flex flex-column">
-          <v-card-title class="text-primary font-weight-medium text-h4">Korpa</v-card-title>
-          <div v-for="product in products" class="mx-4 mt-2">
-            <v-row :key="product.id" class="my-1 d-flex justify-space-between">
+          <v-card-title class="text-primary font-weight-medium text-h4">Cart</v-card-title>
+          <div class="mx-4 mt-2">
+            <v-row class="my-1 d-flex justify-space-between">
               <v-col sm="5" md="4" lg="6" xl="7">
-                <v-card-subtitle class="text-start truncate-name">Naziv</v-card-subtitle>
+                <v-card-subtitle class="text-start truncate-name">Name</v-card-subtitle>
               </v-col>
               <v-col>
-                <v-card-subtitle class="text-end">Količina</v-card-subtitle>
+                <v-card-subtitle class="text-end">Quantity</v-card-subtitle>
               </v-col>
               <v-col>
-                <v-card-subtitle class="text-end">Cijena</v-card-subtitle>
+                <v-card-subtitle class="text-end">Price</v-card-subtitle>
               </v-col>
             </v-row>
-            <v-row :key="index" class="my-1 d-flex justify-space-between">
+            <v-row v-for="product in products" :key="product.id" class="my-1 d-flex justify-space-between">
               <v-col sm="5" md="4" lg="6" xl="7">
                 <v-card-subtitle class="text-start truncate-name">{{ product.name }}</v-card-subtitle>
               </v-col>
@@ -60,27 +60,30 @@
                 <v-card-subtitle class="text-end"> {{ cartStore.getProductQuantity(product.id) }} x</v-card-subtitle>
               </v-col>
               <v-col>
-                <v-card-subtitle class="text-end">{{ product.price }} KM</v-card-subtitle>
+                <v-card-subtitle class="text-end">$ {{ product.price }}</v-card-subtitle>
               </v-col>
             </v-row>
           </div>
           <v-divider opacity="60%"></v-divider>
           <v-card-text class="text-end text-h5 mx-2 mt-2">
-            Ukupno: {{ totalPrice }} KM
+            Total: $ {{ totalPrice }}
           </v-card-text>
           <v-row class="d-flex justify-center align-content-start mx-1">
             <v-col cols="12" sm="6" md="12" lg="6">
               <v-btn v-if="authStore.auth.isAuthenticated" width="100%" color="primary" size="large" variant="flat"
-                append-icon="mdi-cart" @click="createOrder()" rounded >Završi
-                narudžbu</v-btn>
+                append-icon="mdi-cart" @click="createOrder()" rounded >
+                Complete the order
+              </v-btn>
               <v-btn v-if="!authStore.auth.isAuthenticated" width="100%" color="primary" size="large" variant="flat"
-                append-icon="mdi-cart" to="/login" rounded >Završi
-                narudžbu</v-btn>
+                append-icon="mdi-cart" to="/login" rounded >
+                Complete the order
+              </v-btn>
             </v-col>
             <v-col cols="12" sm="6" md="12" lg="6">
               <v-btn width="100%" color="primary" size="large" variant="tonal" append-icon="mdi-chevron-right"
-                to="/products" rounded >Nastavi
-                kupovinu</v-btn>
+                to="/products" rounded >
+                Continue shopping
+              </v-btn>
             </v-col>
           </v-row>
         </v-col>

@@ -2,18 +2,22 @@
   <v-container class="my-12">
     <v-row class="d-flex align-center my-4 mx-2 justify-space-between">
       <v-col>
-        <h1 class="font-weight-medium text-primary">Upravljanje artiklima</h1>
+        <h1 class="font-weight-medium text-primary">Manage products</h1>
       </v-col>
       <v-col class="d-flex justify-end align-center" cols="12" sm="7" lg="6">
-        <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" label="Pretraži" variant="outlined"
+        <v-text-field v-model="search" prepend-inner-icon="mdi-magnify" label="Search" variant="outlined"
           density="compact" single-line hide-details rounded class="text-primary" />
-        <v-btn prepend-icon="mdi-plus" class="ml-4" variant="flat" color="primary" to="/manage/create" size="large" rounded>Dodaj</v-btn>
+        <v-btn prepend-icon="mdi-plus" class="ml-4" variant="flat" color="primary" to="/manage/create" size="large"
+               rounded
+        >
+          Add
+        </v-btn>
       </v-col>
     </v-row>
 
     <v-card variant="text">
-      <v-data-table :headers="headers" :items="products" :search="search" multi-sort
-        items-per-page-text="Broj stavki po stranici" :items-per-page="10" class="text-primary">
+      <v-data-table :headers="headers" :items="products" :search="search" multi-sort :items-per-page="10"
+                    class="text-primary">
 
         <template v-slot:item.name="{ item }">
           <div class="truncate-name-column">{{ item.name }}</div>
@@ -29,7 +33,7 @@
         </template>
 
         <template v-slot:no-data>
-          <p>Nema artikala</p>
+          <p>No products</p>
         </template>
         <template v-slot:item.actions="{ item }">
           <v-btn icon="mdi-pencil" variant="tonal" color="primary" rounded="xl" size="small"
@@ -69,14 +73,14 @@ watch(
 
 const headers = [
   { title: "ID", text: "ID", value: "id", sortable: true },
-  { title: "Naziv", text: "Naziv", value: "name", sortable: true },
-  { title: "Opis", text: "Opis", value: "description", sortable: true },
-  { title: "Zalihe", text: "Zalihe", value: "stock", sortable: true },
-  { title: "Ažurirano", text: "Ažurirano", value: "updatedAt", sortable: true },
-  { title: "Kreirano", text: "Kreirano", value: "createdAt", sortable: true },
+  { title: "Name", text: "Name", value: "name", sortable: true },
+  { title: "Description", text: "Description", value: "description", sortable: true },
+  { title: "Stock", text: "Stock", value: "stock", sortable: true },
+  { title: "Updated", text: "Updated", value: "updatedAt", sortable: true },
+  { title: "Created", text: "Created", value: "createdAt", sortable: true },
   {
-    title: "Akcije",
-    text: "Akcije",
+    title: "Actions",
+    text: "Actions",
     value: "actions",
     sortable: false,
     align: "center",
