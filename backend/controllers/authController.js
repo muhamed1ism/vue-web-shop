@@ -8,20 +8,20 @@ dotenv.config();
 const jwtSecret = process.env.JWT_SECRET;
 if (!jwtSecret) {
   console.log(jwtSecret);
-  console.log('Nema JWT tajnog ključa u .env');
+  console.log('JWT_SECRET is not defined');
 }
 
 export const registerUser = async (req, res) => {
   const { email, password, name, role } = req.body;
 
   if (email.trim() === '' || password.trim() === '' || name.trim() === '') {
-    return res.status(409).json({ error: 'Niste unijeli ispravno podatke' });
+    return res.status(409).json({ error: 'All fields are required' });
   }
 
   try {
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
-      return res.status(409).json({ error: 'Korisnik već postoji'});
+      return res.status(409).json({ error: 'User with this email already exists' });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -40,7 +40,7 @@ export const registerUser = async (req, res) => {
     res.status(201).json({ token });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Registracija nije uspjela'})
+    res.status(500).json({ error: 'Registration failed' });
   }
 }
 
@@ -48,19 +48,19 @@ export const loginUser = async (req, res) => {
   const { email, password } = req.body;
 
   if (email.trim() === '' || password.trim() === '') {
-    return res.status(409).json({ error: 'Niste unijeli ispravno podatke' });
+    return res.status(409).json({ error: 'All fields are required' });
   }
 
   try {
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
-      return res.status(404).json({ error: 'Korisnik nije pronađen' });
+      return res.status(404).json({ error: 'User with this email does not exist' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(401).json({ error: 'Nevažeće vjerodajnice' });
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     const token = jwt.sign({ id: user.id, email: user.email, role: user.role }, jwtSecret);
@@ -68,7 +68,7 @@ export const loginUser = async (req, res) => {
     res.status(200).json({ token });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Prijava nije uspjela' });
+    res.status(500).json({ error: 'Login failed' });
   }
 };
 
@@ -82,13 +82,13 @@ export const getUserData = async (req, res) => {
     });
     
     if (!user) {
-      return res.status(404).json({ error: 'Korisnik nije pronađen'})
+      return res.status(404).json({ error: 'User not found' });
     }
     
     res.status(200).json(user);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Dohvaćanje korisničkih podataka nije uspjelo'})
+    res.status(500).json({ error: 'Fetching user data failed' });
   }
 };
 
@@ -99,5 +99,5 @@ export const logoutUser = async (req, res) => {
       data: { token },
     });
   }
-  res.status(200).json({ message: 'Korisnik se uspješno odjavio'});
+  res.status(200).json({ message: 'User logged out' });
 };

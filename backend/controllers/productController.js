@@ -6,7 +6,7 @@ export const getAllProducts = async (req, res) => {
     const products = await prisma.product.findMany();
     res.status(200).json(products);
   } catch (error) {
-    res.status(500).json({ error: 'Dohvaćanje artikla nije uspjelo' });
+    res.status(500).json({ error: 'Fetching products failed' });
   }
 };
 
@@ -14,10 +14,10 @@ export const getProductById = async (req, res) => {
   const { id } = req.params;
   try {
     const product = await prisma.product.findUnique({ where: { id: Number(id) } });
-    if (!product) return res.status(404).json({ error: 'Artikal nije pronađen' });
+    if (!product) return res.status(404).json({ error: 'Product not found' });
     res.status(200).json(product);
   } catch (error) {
-    res.status(500).json({ error: 'Dohvaćanje artikla nije uspjelo' });
+    res.status(500).json({ error: 'Fetching product failed' });
   }
 };
 
@@ -26,7 +26,7 @@ export const createProduct = async (req, res) => {
   const image = req.file;
 
   if (name.trim() === '' || !price) {
-    return res.status(409).json({ error: 'Niste unijeli ispravno podatke' });
+    return res.status(409).json({ error: 'All fields are required' });
   }
   try {
     let imageUrl = null;
@@ -44,7 +44,7 @@ export const createProduct = async (req, res) => {
     });
     res.status(201).json(newProduct);
   } catch (error) {
-    res.status(500).json({ error: 'Kreiranje artikla nije uspjelo' });
+    res.status(500).json({ error: 'Creating product failed' });
     throw error;
   }
 };
@@ -55,7 +55,7 @@ export const updateProduct = async (req, res) => {
   const image = req.file;
 
   if (name.trim() === '') {
-    return res.status(409).json({ error: 'Niste unijeli ispravno podatke' });
+    return res.status(409).json({ error: 'All fields are required' });
   }
   
   try {
@@ -76,7 +76,7 @@ export const updateProduct = async (req, res) => {
     });
     res.status(200).json(updatedProduct);
   } catch (error) {
-    res.status(500).json({ error: 'Ažuriranje artikla nije uspjelo' });
+    res.status(500).json({ error: 'Updating product failed' });
   }
 };
 
@@ -86,6 +86,6 @@ export const deleteProduct = async (req, res) => {
     await prisma.product.delete({ where: { id: Number(id) } });
     res.status(204).send();
   } catch (error) {
-    res.status(500).json({ error: 'Brisanje artikla nije uspjelo' });
+    res.status(500).json({ error: 'Deleting product failed' });
   }
 };

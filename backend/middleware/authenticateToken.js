@@ -8,7 +8,7 @@ const authenticateToken = async (req, res, next) => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
-  if (token == null) return res.status(401).json({ error: 'Nije osiguran token' });
+  if (token == null) return res.status(401).json({ error: 'Token is required' });
 
   try {
     const revokedToken = await prisma.revokedToken.findUnique({
@@ -16,11 +16,11 @@ const authenticateToken = async (req, res, next) => {
     });
 
     if (revokedToken) {
-      return res.status(401).json({ message: 'Token nije više važeći' });
+      return res.status(401).json({ message: 'Token revoked' });
     }
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-      if (err) return res.status(403).json({ error: 'Nevažeći token' });
+      if (err) return res.status(403).json({ error: 'Invalid token' });
       req.user = user;
       next();
     });

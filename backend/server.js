@@ -10,10 +10,10 @@ const startServer = async () => {
   try {
     await prisma.$connect();
     app.listen(PORT, () => {
-      console.log(`Server radi na portu ${PORT}`);
+      console.log(`Server is running on port ${PORT}`);
     });
   } catch (error) {
-    console.error('Povezivanje s bazom nije uspjelo');
+    console.error('Error starting server:', error);
     process.exit(1);
   }
 };

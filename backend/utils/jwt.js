@@ -15,14 +15,14 @@ const verifyToken = (req, res, next) => {
   const token = req.header('Authorization').replace('Bearer ', '');
 
   if (!token) {
-    return res.status(401).json({ error: 'Pristup odbijen' });
+    return res.status(401).json({ error: 'Token is required' });
   }
 
   try {
     req.user = verify(token, process.env.JWT_SECRET);
     next();
   } catch (err) {
-    res.status(400).json({ error: 'Neispravan token' });
+    res.status(400).json({ error: 'Invalid token' });
   }
 };
 

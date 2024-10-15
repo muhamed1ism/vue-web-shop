@@ -6,7 +6,7 @@ export const createOrder = async (req, res) => {
   const userId = req.user.id;
 
   if (!items || items.length === 0) {
-    throw new Error('Korpa je prazna');
+    throw new Error('Cart is empty');
   }
 
   try {
@@ -20,11 +20,11 @@ export const createOrder = async (req, res) => {
         });
 
         if (!product) {
-          return new Error(`Artikal sa ID-om ${product.id} nije pronađen.`);
+          return new Error(`Product with ID ${product.id} not found`);
         }
 
         if (product.stock < item.quantity) {
-          throw new Error(`Nedovoljne zalihe artikla: ${product.name}`);
+          throw new Error(`Stock for product ${product.name} is not sufficient`);
         }
 
         total += product.price * item.quantity;
@@ -54,7 +54,7 @@ export const createOrder = async (req, res) => {
       res.status(201).json(order);
     });
   } catch (error) {
-    res.status(500).json({ error: 'Kreiranje narudžbe nije uspjelo' });
+    res.status(500).json({ error: 'Creating order failed' });
   }
 };
 
@@ -83,7 +83,7 @@ export const getUserOrders = async (req, res) => {
 
     res.status(200).json(orders);
   } catch (error) {
-    res.status(500).json({ error: 'Dohvaćanje narudžbe nije uspjelo' });
+    res.status(500).json({ error: 'Fetching orders failed' });
   }
 };
 
@@ -110,7 +110,7 @@ export const getAllOrders = async (req, res) => {
     });
     res.status(200).json(orders);
   } catch (error) {
-    res.status(500).json({ error: 'Dohvaćanje narudžbi nije uspjelo' });
+    res.status(500).json({ error: 'Fetching orders failed' });
   }
 };
 
@@ -119,7 +119,7 @@ export const updateOrderStatus = async (req, res) => {
   const { status } = req.body;
 
   if (!Object.values(OrderStatus).includes(status)) {
-    return res.status(400).json({ error: 'Dani status je pogrešan' })
+    return res.status(400).json({ error: 'Invalid status' });
   }
 
   try {
@@ -140,6 +140,6 @@ export const updateOrderStatus = async (req, res) => {
 
     res.status(200).json(updatedOrder);
   } catch (error) {
-    res.status(500).json({ error: 'Ažuriranje narudžbe nije uspjelo' });
+    res.status(500).json({ error: 'Updating order status failed' });
   }
 };
