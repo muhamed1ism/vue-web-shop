@@ -13,7 +13,7 @@
         </v-col>
         <v-col class="d-flex flex-column justify-space-around" cols="11" md="11" lg="6">
           <div>
-            <v-card-title class="text-h3 font-weight-medium text-primary text-pre-wrap">Welcome to Barbarić Carpentry</v-card-title>
+            <v-card-title class="text-h3 font-weight-medium text-primary text-pre-wrap">Welcome to Stolarija Barbarić</v-card-title>
             <v-card-text class="text-h6 py-sm-8">
               At Barbarić Carpentry, we proudly create unique wooden furniture that transforms your home into a space
               you'll enjoy. With years of experience and a dedicated team of experts, we specialize in crafting

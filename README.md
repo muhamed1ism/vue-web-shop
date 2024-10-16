@@ -1,110 +1,110 @@
-# 🛠️ Stolarija Barbarić - Web Shop za Drvni Namještaj
+# 🛠️ Stolarija Barbarić - Web Shop for Wooden Furniture
 
-Stolarija Barbarić je web aplikacija za prodaju drvnog namještaja, izrađena koristeći moderne tehnologije poput MySQL-a, Express.js-a, Prisma ORM-a te Vue.js-a s Vuetifyjem za frontend. Aplikacija nudi kontrolu pristupa temeljenu na ulogama (korisnik, admin) i podržava upravljanje narudžbama za korisnike i administratore.
+Stolarija Barbarić is a web application for selling wooden furniture, built using modern technologies like MySQL, Express.js, Prisma ORM, and Vue.js with Vuetify for the frontend. The application offers role-based access control (user, admin) and supports order management for both customers and administrators.
 
-## 🚀 Pokretanje aplikacije
+## 🚀 Starting the Application
 
-### 🔐 .env Datoteka
+### 🔐 .env File
 
-Primjer `.env` datoteke koju trebate postaviti u backend direktorij:
+An example `.env` file you need to set up in the backend directory:
 
 ```
 PORT=4000
-DATABASE_URL="mysql://root:lozinka@localhost:3306/mydb"
-JWT_SECRET="tajni_kljuc"
-IMGBB_KEY="imgbb_api_kljuc"
+DATABASE_URL="mysql://root:password@localhost:3306/mydb"
+JWT_SECRET="secret_key"
+IMGBB_KEY="imgbb_api_key"
 ```
 
-### 📜 Pokretanje
+### 📜 Running
 
-1. **Popunite `.env` datoteku** s potrebnim varijablama okruženja.
-2. **Instalirajte potrebne module** za backend i frontend pomoću `npm install`.
-3. **Pokrenite MySQL bazu podataka** s Docker-om.
-4. **Migrirajte baze podataka** (samo prvi put) koristeći Prisma.
-5. **Pokrenite backend i frontend servere** koristeći `npm run dev`.
+1. **Fill in the `.env` file** with the required environment variables.
+2. **Install the necessary modules** for both backend and frontend using `npm install`.
+3. **Run the MySQL database** using Docker.
+4. **Migrate the databases** (only the first time) using Prisma.
+5. **Start the backend and frontend servers** using `npm run dev`.
 
 ### ⚙️ Backend server:
 
-1. U backend direktoriju instalirajte potrebne module:
+1. In the backend directory, install the necessary modules:
    ```bash
    cd backend
    npm install
    ```
 
-2. Pokrenite MySQL bazu podataka putem Docker-a:
+2. Start the MySQL database using Docker:
    ```bash
    docker-compose up --build
    ```
-   
-   Za svako sljedeće pokretanje koristite:
+
+   For subsequent runs, use:
    ```bash
    docker-compose up
    ```
 
-3. **Migriranje Prisma modela** (izvršava se samo prvi put kada je baza podataka prazna):
+3. **Migrate Prisma models** (run only the first time when the database is empty):
    ```bash
    npx prisma migrate dev
    ```
 
-4. Pokrenite backend server:
+4. Start the backend server:
    ```bash
    npm run dev
    ```
 
 ### 🎨 Frontend server:
 
-1. Uđite u frontend direktorij i instalirajte module:
+1. Navigate to the frontend directory and install the modules:
    ```bash
    cd frontend
    npm install
    ```
 
-2. Pokrenite frontend server:
+2. Start the frontend server:
    ```bash
    npm run dev
    ```
 
-## ✨ Značajke
+## ✨ Features
 
-- **Gost korisnici**: Mogu pregledavati proizvode i dodavati ih u košaricu. Međutim, za dovršetak kupnje potrebno je prijaviti se.
-- **Autentificirani korisnici**: Mogu upravljati košaricom, izvršiti narudžbu i pregledati povijest narudžbi.
-- **Administratori**: Mogu upravljati proizvodima (dodavati, uređivati, brisati) te pregledavati i obrađivati sve narudžbe. Narudžbe mogu biti prihvaćene ili odbijene.
-- **Autentifikacija temeljena na ulogama**: Podrška za različite uloge korisnika (korisnik, admin) korištenjem JWT tokena.
+- **Guest users**: Can browse products and add them to the cart, but need to sign in to complete purchases.
+- **Authenticated users**: Can manage their cart, place orders, and view order history.
+- **Administrators**: Can manage products (add, edit, delete) and review and process all orders. Orders can be accepted or declined.
+- **Role-based authentication**: Supports different user roles (user, admin) using JWT tokens.
 
-## 🧰 Tehnologije
+## 🧰 Technologies
 
 ### Backend:
-- **Node.js** i **Express.js**: Backend okvir za razvoj REST API-ja.
-- **MySQL**: Relacijska baza podataka, pokrenuta putem **Docker-compose**.
-- **Prisma ORM**: Upravljanje bazom podataka i migracijama.
-- **JWT (jsonwebtoken)**: Za autentifikaciju i autorizaciju temeljenu na tokenima.
-- **Bcrypt**: Hashiranje lozinki korisnika.
-- **Multer i Axios**: Za upload slika na **ImgBB**.
-- **Cors**: Rješavanje problema s CORS-om u frontend-backend komunikaciji.
-- **Dotenv**: Učitavanje varijabli okruženja iz `.env` datoteke.
-- **Nodemon**: Automatsko pokretanje servera tijekom razvoja.
+- **Node.js** and **Express.js**: Backend framework for developing REST APIs.
+- **MySQL**: Relational database, running via **Docker-compose**.
+- **Prisma ORM**: Database management and migrations.
+- **JWT (jsonwebtoken)**: For token-based authentication and authorization.
+- **Bcrypt**: Hashing user passwords.
+- **Multer and Axios**: For uploading images to **ImgBB**.
+- **Cors**: Resolving CORS issues in frontend-backend communication.
+- **Dotenv**: Loading environment variables from `.env` file.
+- **Nodemon**: Automatically restarting the server during development.
 
 ### Frontend:
-- **Vue 3** i **Vuetify 3**: Napredni UI framework za izradu responzivnog korisničkog sučelja.
-- **Vite**: Build alat za brže kompajliranje Vue aplikacija.
-- **Pinia**: Upravljanje stanjem aplikacije.
-- **VueUse**: Korištenje `useLocalStorage` za spremanje tokena, uloge korisnika i autentifikacijskih podataka.
+- **Vue 3** and **Vuetify 3**: Advanced UI framework for building responsive user interfaces.
+- **Vite**: Build tool for faster compilation of Vue applications.
+- **Pinia**: Application state management.
+- **VueUse**: Using `useLocalStorage` to store tokens, user roles, and authentication data.
 
-## 🗂️ Modeli
+## 🗂️ Models
 
-Aplikacija koristi sljedeće modele:
+The application uses the following models:
 
-- **User**: Korisnički podaci (ime, email, uloga, lozinka).
-- **Product**: Informacije o proizvodima (naziv, opis, cijena, zaliha, URL slike).
-- **Order**: Narudžbe korisnika, povezane s korisnikom i statusom narudžbe.
-- **OrderItem**: Stavke narudžbi, sadrže informacije o proizvodima unutar pojedine narudžbe.
-- **RevokedToken**: Evidencija poništenih JWT tokena.
-- **Role (enum)**: Uloge korisnika (USER, ADMIN).
-- **OrderStatus (enum)**: Statusi narudžbi (PENDING, COMPLETED, CANCELLED).
+- **User**: User data (name, email, role, password).
+- **Product**: Product information (name, description, price, stock, image URL).
+- **Order**: User orders, linked to the user and order status.
+- **OrderItem**: Items in orders, containing information about the products in each order.
+- **RevokedToken**: Records of revoked JWT tokens.
+- **Role (enum)**: User roles (USER, ADMIN).
+- **OrderStatus (enum)**: Order statuses (PENDING, COMPLETED, CANCELLED).
 
-## 🛒 Funkcionalnosti aplikacije
+## 🛒 Application Features
 
-- Korisnici mogu pregledavati proizvode, dodavati ih u košaricu te naručivati.
-- Admin korisnici mogu upravljati zalihama proizvoda, dodavati nove artikle te upravljati narudžbama.
-- Aplikacija je responzivna i prilagođena svim veličinama ekrana.
-- Omogućena je promjena teme između svijetle i tamne.
+- Users can browse products, add them to the cart, and place orders.
+- Admin users can manage product inventory, add new items, and manage orders.
+- The application is responsive and adjusts to all screen sizes.
+- Dark and light theme switching is enabled.
