@@ -51,7 +51,7 @@
 
 const aboutImg = '/about-img.png';
 const aboutTxt = 'This project is a modern web application developed with Vue.js and Vuetify for Barbarić ' +
-  'Carpentry, specialized in selling furniture such as kitchens, wardrobes, and bedrooms. The application allows ' +
+  'Joinery, specialized in selling furniture such as kitchens, wardrobes, and bedrooms. The application allows ' +
   'users to browse and order products online.';
 
 </script>

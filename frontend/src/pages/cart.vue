@@ -72,17 +72,17 @@
             <v-col cols="12" sm="6" md="12" lg="6">
               <v-btn v-if="authStore.auth.isAuthenticated" width="100%" color="primary" size="large" variant="flat"
                 append-icon="mdi-cart" @click="createOrder()" rounded >
-                Complete the order
+                Checkout
               </v-btn>
               <v-btn v-if="!authStore.auth.isAuthenticated" width="100%" color="primary" size="large" variant="flat"
                 append-icon="mdi-cart" to="/login" rounded >
-                Complete the order
+                Keep shopping
               </v-btn>
             </v-col>
             <v-col cols="12" sm="6" md="12" lg="6">
               <v-btn width="100%" color="primary" size="large" variant="tonal" append-icon="mdi-chevron-right"
                 to="/products" rounded >
-                Continue shopping
+                Keep shopping
               </v-btn>
             </v-col>
           </v-row>

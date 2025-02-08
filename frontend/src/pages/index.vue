@@ -15,7 +15,7 @@
           <div>
             <v-card-title class="text-h3 font-weight-medium text-primary text-pre-wrap">Welcome to Stolarija Barbarić</v-card-title>
             <v-card-text class="text-h6 py-sm-8">
-              At Barbarić Carpentry, we proudly create unique wooden furniture that transforms your home into a space
+              At Barbarić Joinery, we proudly create unique wooden furniture that transforms your home into a space
               you'll enjoy. With years of experience and a dedicated team of experts, we specialize in crafting
               kitchens, bedrooms, wardrobes, and other custom-made furniture pieces.
             </v-card-text>
